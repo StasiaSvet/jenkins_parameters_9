@@ -14,14 +14,15 @@ public class TestBase extends TestData {
     @BeforeAll
     static void setup() {
 
-        System.out.println(System.getProperty("a"));
-
         addListener("AllureSelenide", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
+
+        String remoteWebDriver = System.getProperty("remote.web.driver");
+        if (remoteWebDriver != null)
+            Configuration.remote = remoteWebDriver;
     }
 
     @AfterEach
@@ -29,7 +30,9 @@ public class TestBase extends TestData {
         attachScreenshot("Last screenshot");
         attachPageSource();
         attachAsText("Browser console logs", getConsoleLogs());
-        attachVideo();
+
+        if (System.getProperty("video.storage") != null)
+            attachVideo();
         closeWebDriver();
     }
 }
