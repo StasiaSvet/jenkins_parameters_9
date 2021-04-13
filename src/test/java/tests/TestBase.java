@@ -19,6 +19,7 @@ public class TestBase extends TestData {
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
+        Configuration.browser = System.getProperty("web.browser", "chrome");
 
         String remoteWebDriver = System.getProperty("remote.web.driver");
         if (remoteWebDriver != null)
