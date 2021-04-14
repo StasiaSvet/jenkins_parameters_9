@@ -1,7 +1,10 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.webdriver.DriverFactory;
+import config.DriverConfig;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -11,6 +14,8 @@ import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static tests.helpers.AttachmentHelper.*;
 
 public class TestBase extends TestData {
+
+    static DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
     @BeforeAll
     static void setup() {
 
@@ -21,9 +26,11 @@ public class TestBase extends TestData {
         Configuration.browserCapabilities = capabilities;
         Configuration.browser = System.getProperty("web.browser", "chrome");
 
+        String user = driverConfig.remoteWebUser();
+        String pass = driverConfig.remoteWebPass();
         String remoteWebDriver = System.getProperty("remote.web.driver");
         if (remoteWebDriver != null)
-            Configuration.remote = remoteWebDriver;
+            Configuration.remote = String.format(remoteWebDriver, user, pass);
     }
 
     @AfterEach
