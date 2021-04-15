@@ -15,7 +15,8 @@ public class FormDemoqaRegistrationForm extends TestBase {
     public void fulfillFormTest() {
         step("Open the student registration form page", () -> {
             open("https://demoqa.com/automation-practice-form");
-            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+            $(".practice-form-wrapper").shouldHave(text(TestBase.headerName));
+            //"Student Registration Form"
         });
 
         step("Fill student registration form", () -> {

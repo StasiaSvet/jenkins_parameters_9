@@ -9,6 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.sql.SQLOutput;
+
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static tests.helpers.AttachmentHelper.*;
@@ -16,6 +18,8 @@ import static tests.helpers.AttachmentHelper.*;
 public class TestBase extends TestData {
 
     static DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
+    public static String headerName;
+
     @BeforeAll
     static void setup() {
 
@@ -28,14 +32,18 @@ public class TestBase extends TestData {
 
         String user = driverConfig.remoteWebUser();
         String pass = driverConfig.remoteWebPass();
+        String headerName = System.getProperty("header.name");
+        //"Student Registration Form"
         String remoteWebDriver = System.getProperty("remote.web.driver");
         if (remoteWebDriver != null)
             Configuration.remote = String.format(remoteWebDriver, user, pass);
-        
-            System.out.println(user);
-            System.out.println(pass);
-            System.out.println(remoteWebDriver);
-            System.out.println(String.format(remoteWebDriver, user, pass));
+
+        System.out.println(user);
+        System.out.println(pass);
+        System.out.println(remoteWebDriver);
+        System.out.println(headerName);
+        //System.out.println(String.format(remoteWebDriver, user, pass));
+        System.out.printf((remoteWebDriver) + "%n", user, pass);
     }
 
     @AfterEach
