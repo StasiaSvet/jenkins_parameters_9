@@ -31,6 +31,11 @@ public class TestBase extends TestData {
         String remoteWebDriver = System.getProperty("remote.web.driver");
         if (remoteWebDriver != null)
             Configuration.remote = String.format(remoteWebDriver, user, pass);
+        
+            System.out.println(user);
+            System.out.println(password);
+            System.out.println(remoteWebDriver);
+            System.out.println(String.format(remoteWebDriver, user, password));
     }
 
     @AfterEach
