@@ -32,7 +32,7 @@ public class TestBase extends TestData {
 
         String user = driverConfig.remoteWebUser();
         String pass = driverConfig.remoteWebPass();
-        String headerName = System.getProperty("header.name");
+        TestBase.headerName = System.getProperty("header.name");
         //"Student Registration Form"
         String remoteWebDriver = System.getProperty("remote.web.driver");
         if (remoteWebDriver != null)
